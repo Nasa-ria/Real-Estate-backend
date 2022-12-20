@@ -19,4 +19,5 @@ use App\Http\Controllers\AdminController;
 //     return $request->user();
 // });
 
-Route::post('post', [AdminController::class, 'AdminSignUp']);
+Route::post('signup', [AdminController::class, 'AdminSignUp']);
+Route::post('login', [AdminController::class, 'AdminLogin']);
