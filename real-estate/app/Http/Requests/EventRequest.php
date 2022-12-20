@@ -33,6 +33,7 @@ class EventRequest extends FormRequest
             'amenities' => ['required', ],
             'facilities' => ['required', ],
             'images' => ['required', 'image'],
+            'profileImages' => ['required', 'image'],
             'furnished' => ['required', 'boolean']
            
             //'organizer_id' => ['required'],

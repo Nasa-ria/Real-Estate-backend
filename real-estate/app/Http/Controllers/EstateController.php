@@ -44,24 +44,25 @@ class EstateController extends Controller
            $new_name = rand() . '.' .$flier->getClientOriginalExtension();
            $folder = 'public/uploads';
            $file = $this->uploadSingle($flier, $folder, $new_name);
-          // $estate->flier = $file;  
+           //$estate->flier = $file;  
            //dd($file);   
        }
 
-       $imageName = '';
        $urls = '';
+     
+       $imageName = '';
+      
        if ($request->hasFile('images')) {
+       
            $images = $request->file('images');
-
            foreach($images as $image){
            $fileName = Str::random(25) . '.' . $image->getClientOriginalExtension();
            $folder = 'public/uploads/images';
-    
            $imageName = $fileName;
            $urls = $this->uploadMutiple($image, $folder, $imageName);
            }
-          
-          
+           
+          $estate->images = explode(' ', $urls);
            
        }
 
@@ -80,7 +81,7 @@ class EstateController extends Controller
 
         $estate->save();
 
-        return $estate;
+         return $estate;
 
     }
 
@@ -90,9 +91,12 @@ class EstateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(  $id)
     {
         //
+        $estate = Estate::find($id);
+
+        return $estate;
     }
 
     /**
@@ -116,5 +120,8 @@ class EstateController extends Controller
     public function destroy($id)
     {
         //
+         Estate::destroy($id);
+        return "Apartment has been deleted";
+
     }
 }
