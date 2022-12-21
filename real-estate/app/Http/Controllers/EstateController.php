@@ -106,7 +106,7 @@ class EstateController extends Controller
         if(Count($estates) === 0){
             return response()->json([
                 'message' => "no apartment match",
-                "name" => $name
+                
             ]);
         }
 
