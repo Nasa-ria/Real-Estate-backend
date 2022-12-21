@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\EventRequest;
 use Illuminate\Console\Scheduling\Event;
+use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Constraint\Count;
 
 class EstateController extends Controller
 {
@@ -20,9 +22,10 @@ class EstateController extends Controller
     public function index()
     {
         //
-        $estate = Estate::all();
+        $estate = Estate::all()->sortDesc();
+        $estates = Estate::all()->pluck('name');
 
-        return $estate;
+        return $estates;
     }
 
     /**
@@ -55,7 +58,7 @@ class EstateController extends Controller
        if ($request->hasFile('images')) {
        
            $images = $request->file('images');
-           foreach($images as $image){
+            foreach($images as $image){
            $fileName = Str::random(25) . '.' . $image->getClientOriginalExtension();
            $folder = 'public/uploads/images';
            $imageName = $fileName;
@@ -83,6 +86,31 @@ class EstateController extends Controller
 
          return $estate;
 
+    }
+
+    public function filterResults(Request $request)
+
+
+    {
+        $location = $request->input('location');
+        $name = $request->input('name');
+       
+        $price = $request->input('price');
+        $estates = DB::table('estates')
+                    ->orWhere('name',  $name  )
+                    ->orWhere('location',  $location  )
+                    //->orWhere('furnished',  $furnished  )
+                    ->orWhere('price',  $price  )
+                    ->get();
+
+        if(Count($estates) === 0){
+            return response()->json([
+                'message' => "no apartment match",
+                "name" => $name
+            ]);
+        }
+
+        return $estates;
     }
 
     /**
