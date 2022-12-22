@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
-    public function AdminSignUp(Request $request)
+    public function SignUp(Request $request)
     { 
         $request->validate([
         'name' => 'required',
@@ -60,7 +60,7 @@ class AdminController extends Controller
    }
 
 
-    public function AdminLogin(Request $request)
+    public function Login(Request $request)
     { 
         $request->validate([
             'email' => 'required',

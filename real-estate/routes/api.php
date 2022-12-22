@@ -16,13 +16,14 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::post('login', [AdminController::class, 'AdminLogin']);
+Route::post('signup', [AdminController::class, 'SignUp']);
+Route::post('login ', [AdminController::class, 'Login']);
 Route::apiResource('estates', EstateController::class);
-
+Route::get('search',EstateController::class,'searching');
 Route::get('estate/filter', [EstateController::class, 'filterResults']);
 
 

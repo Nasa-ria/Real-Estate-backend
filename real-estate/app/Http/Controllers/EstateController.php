@@ -113,6 +113,25 @@ class EstateController extends Controller
         return $estates;
     }
 
+
+    // search
+    public function searching(Request $request){
+        //get the request the user is passing
+        $search = $request->input('search');
+        //if you get the request, search in the model 
+        $estate = Estate::
+                                        where('name', 'ilike', "%" . $search . "%" )
+                                        ->orwhere('location', 'ilike', "%" . $search . "%")
+                                        ->get();
+        if($estate->count() > 0){
+            return $estate;
+        }else{
+            return response()->json([
+                "message" => "No results found"
+            ]);
+        }
+    }
+
     /**
      * Display the specified resource.
      *
