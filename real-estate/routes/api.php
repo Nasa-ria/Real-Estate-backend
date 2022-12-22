@@ -21,3 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('login', [AdminController::class, 'AdminLogin']);
+Route::apiResource('estates', EstateController::class);
+
+Route::get('estate/filter', [EstateController::class, 'filterResults']);
+
+
+
