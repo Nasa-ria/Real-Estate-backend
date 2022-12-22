@@ -20,4 +20,5 @@ use App\Http\Controllers\AdminController;
 // });
 
 Route::post('signup', [AdminController::class, 'AdminSignUp']);
+
 Route::post('login', [AdminController::class, 'AdminLogin']);
